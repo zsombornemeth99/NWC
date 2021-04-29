@@ -1,0 +1,261 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Demo",
+    "description": "*Promapp process: [Demo](https://eu.promapp.com/abesse/Process/Minimode/Permalink/Bqpg017IqQjy7tzU0NBk2b), workflow requested by [Zsombor Németh] (mailto:zsombor.nemeth@abesse.hu) in Promapp*",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/api/v1/workflow/published",
+  "x-ntx-object-variable-support": false,
+  "host": "npp-abesse.workflowcloud.com",
+  "paths": {
+    "/83a4b72d-7a32-453a-82f9-da647eeceeeb/instances": {
+      "post": {
+        "summary": "Demo",
+        "description": "Starts workflow: Demo",
+        "operationId": "start83a4b72d-7a32-453a-82f9-da647eeceeeb",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "API Parameters",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "startData": {
+                  "type": "object",
+                  "properties": {
+                    "se_name": {
+                      "title": "name",
+                      "description": "",
+                      "type": "string"
+                    }
+                  }
+                },
+                "options": {
+                  "type": "object",
+                  "properties": {
+                    "callbackUrl": {
+                      "title": "Callback URL on completion",
+                      "description": "A Url to return the results back (https urls only)",
+                      "type": "string"
+                    },
+                    "instanceToken": {
+                      "title": "Instance Token",
+                      "description": "An instance token handle obtained by invoking instances/create call. This token is used when files have to be uploaded as part of the workflow start variables.",
+                      "type": "string",
+                      "x-ms-visibility": "internal"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "token",
+            "required": true,
+            "type": "string",
+            "in": "query",
+            "default": "Fggx5ddqhaZaZ6GuBnDyi3QvJMRHaCWb6vZhqkBCFlFQc2RXFP5w0rYWqWwP9agvsrV9Pc",
+            "description": "A security token to start the workflow",
+            "x-ntx-summary": "Token"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "x-ntx-callback-schema": {
+              "type": "object",
+              "properties": {
+                "returnData": {
+                  "type": "object",
+                  "properties": {
+                    "se_name": {
+                      "title": "name",
+                      "description": "",
+                      "type": "string"
+                    }
+                  }
+                },
+                "workflow": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "description": "Service Unavailable - Overloaded"
+          },
+          "default": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/83a4b72d-7a32-453a-82f9-da647eeceeeb/instances/create": {
+      "post": {
+        "summary": "Demo",
+        "description": "Creates an instance of workflow: Demo & returns an instance token, that should be used for uploading files and/or starting the workflow instance.",
+        "operationId": "create83a4b72d-7a32-453a-82f9-da647eeceeeb",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "required": true,
+            "type": "string",
+            "in": "query",
+            "default": "Fggx5ddqhaZaZ6GuBnDyi3QvJMRHaCWb6vZhqkBCFlFQc2RXFP5w0rYWqWwP9agvsrV9Pc",
+            "description": "A security token to create the workflow instance",
+            "x-ntx-summary": "Token"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "description": "Service Unavailable - Overloaded"
+          },
+          "default": {
+            "description": "Unexpected Error"
+          }
+        },
+        "x-ms-visibility": "internal"
+      }
+    },
+    "/83a4b72d-7a32-453a-82f9-da647eeceeeb/instances/uploads": {
+      "post": {
+        "summary": "Demo",
+        "description": "Uploads a file for use by an instance of workflow: Demo",
+        "operationId": "upload83a4b72d-7a32-453a-82f9-da647eeceeeb",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Transfer-Encoding",
+            "required": true,
+            "type": "string",
+            "in": "header",
+            "enum": [
+              "chunked"
+            ],
+            "default": "chunked",
+            "description": "Only accepts Chunked Transfer Encoding"
+          },
+          {
+            "name": "File",
+            "required": true,
+            "type": "file",
+            "in": "formData",
+            "description": "The file part of the multipart request for file upload. You can upload only one file at a time."
+          },
+          {
+            "name": "File-Name",
+            "required": true,
+            "type": "string",
+            "in": "formData",
+            "description": "A name for the file being uploaded. If not provided, defaults to File's filename."
+          },
+          {
+            "name": "Instance-Token",
+            "required": true,
+            "type": "string",
+            "in": "formData",
+            "description": "Instance token from the instances/create call."
+          },
+          {
+            "name": "token",
+            "required": true,
+            "type": "string",
+            "in": "query",
+            "default": "Fggx5ddqhaZaZ6GuBnDyi3QvJMRHaCWb6vZhqkBCFlFQc2RXFP5w0rYWqWwP9agvsrV9Pc",
+            "description": "A security token",
+            "x-ntx-summary": "Token"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "description": "File reference",
+              "format": "x-ntx-file-reference",
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "description": "Service Unavailable - Overloaded"
+          },
+          "default": {
+            "description": "Unexpected Error"
+          }
+        },
+        "x-ms-visibility": "internal"
+      }
+    }
+  }
+}
